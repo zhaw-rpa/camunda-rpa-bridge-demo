@@ -1,0 +1,9 @@
+camunda-rpa-bridge-demo-workspace.code-workspace
+.vscode/launch.json
+camunda/.settings/
+camunda/target/
+rpa-bridge/application.yml
+camunda/.classpath
+camunda/.project
+camunda/h2-db.mv.db
+uipath-process/.settings/

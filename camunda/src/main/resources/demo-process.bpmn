@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1um9ibr" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.7.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.14.0">
+  <bpmn:collaboration id="Collaboration_16piin4">
+    <bpmn:participant id="WorkflowEngineParticipant" name="Workflow Engine" processRef="Process_1v6358l" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1v6358l" name="Camunda RPA Bridge Demo Process" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_169p422">
+      <bpmn:lane id="UserLane" name="User">
+        <bpmn:flowNodeRef>NameOfUserEnterdStartEvent</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ReadCurrentDateAndTimeTask</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>DateAndTimeReadEndEvent</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="AutomaticLane" name="Automatic">
+        <bpmn:flowNodeRef>CallUiPathDemoBotTask</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="NameOfUserEnterdStartEvent" name="Name of User enterd">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="name" label="Your Name" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0c8eq2x</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="ReadCurrentDateAndTimeTask" name="Read current date and time" camunda:assignee="a">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="currentDateAndTime" label="Current Date and Time" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ins21o</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jphk25</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="DateAndTimeReadEndEvent" name="Date and time read">
+      <bpmn:incoming>Flow_1jphk25</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="CallUiPathDemoBotTask" name="Call UiPath Demo Bot" camunda:modelerTemplate="f3056129-f33a-4cd0-8382-644789d046bb" camunda:modelerTemplateVersion="1619979918011" camunda:asyncAfter="true" camunda:type="external" camunda:topic="uipath">
+      <bpmn:extensionElements>
+        <camunda:connector />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="name">${name}</camunda:inputParameter>
+          <camunda:outputParameter name="currentDateAndTime">${currentDateAndTime}</camunda:outputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="bot" value="Camunda-RPA-Bridge-Demo-Process" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0c8eq2x</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ins21o</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1jphk25" sourceRef="ReadCurrentDateAndTimeTask" targetRef="DateAndTimeReadEndEvent" />
+    <bpmn:sequenceFlow id="Flow_0ins21o" sourceRef="CallUiPathDemoBotTask" targetRef="ReadCurrentDateAndTimeTask" />
+    <bpmn:sequenceFlow id="Flow_0c8eq2x" sourceRef="NameOfUserEnterdStartEvent" targetRef="CallUiPathDemoBotTask" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_16piin4">
+      <bpmndi:BPMNShape id="Participant_0rbxd2y_di" bpmnElement="WorkflowEngineParticipant" isHorizontal="true">
+        <dc:Bounds x="160" y="57" width="630" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1exwxef_di" bpmnElement="UserLane" isHorizontal="true">
+        <dc:Bounds x="190" y="57" width="600" height="125" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1os3ajw_di" bpmnElement="AutomaticLane" isHorizontal="true">
+        <dc:Bounds x="190" y="182" width="600" height="125" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1jphk25_di" bpmnElement="Flow_1jphk25">
+        <di:waypoint x="600" y="117" />
+        <di:waypoint x="662" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ins21o_di" bpmnElement="Flow_0ins21o">
+        <di:waypoint x="440" y="240" />
+        <di:waypoint x="470" y="240" />
+        <di:waypoint x="470" y="117" />
+        <di:waypoint x="500" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0c8eq2x_di" bpmnElement="Flow_0c8eq2x">
+        <di:waypoint x="285" y="117" />
+        <di:waypoint x="313" y="117" />
+        <di:waypoint x="313" y="240" />
+        <di:waypoint x="340" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="NameOfUserEnterdStartEvent">
+        <dc:Bounds x="249" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="232" y="142" width="70" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0072zuf_di" bpmnElement="ReadCurrentDateAndTimeTask">
+        <dc:Bounds x="500" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ax5h7u_di" bpmnElement="DateAndTimeReadEndEvent">
+        <dc:Bounds x="662" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="646" y="142" width="69" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_18hg1nu_di" bpmnElement="CallUiPathDemoBotTask">
+        <dc:Bounds x="340" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
