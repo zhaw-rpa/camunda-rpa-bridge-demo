@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1um9ibr" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.7.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.14.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1um9ibr" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.8.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.14.0">
   <bpmn:collaboration id="Collaboration_16piin4">
     <bpmn:participant id="WorkflowEngineParticipant" name="Workflow Engine" processRef="Process_1v6358l" />
+    <bpmn:participant id="Participant_0m4upfy" name="Camunda RPA Bridge" />
+    <bpmn:participant id="Participant_1t5c03c" name="UiPath Orchestrator API" />
+    <bpmn:participant id="Participant_070as9r" name="UiPath Bot" />
+    <bpmn:messageFlow id="Flow_0vy8x3k" name="Process Name (Package), Name" sourceRef="CallUiPathDemoBotTask" targetRef="Participant_0m4upfy" />
+    <bpmn:messageFlow id="Flow_1yowdr4" name="Successful: Date and Time; Failure: Error Message" sourceRef="Participant_0m4upfy" targetRef="CallUiPathDemoBotTask" />
+    <bpmn:messageFlow id="Flow_0ixt2p6" name="Initial: Process Name (Package), Name; Polling: Job Status Request" sourceRef="Participant_0m4upfy" targetRef="Participant_1t5c03c" />
+    <bpmn:messageFlow id="Flow_1suitk0" name="Initial: Job created; Polling: Job status; Successful: date and time" sourceRef="Participant_1t5c03c" targetRef="Participant_0m4upfy" />
+    <bpmn:messageFlow id="Flow_1h84hxe" name="Name" sourceRef="Participant_1t5c03c" targetRef="Participant_070as9r" />
+    <bpmn:messageFlow id="Flow_184c40b" name="Date and time" sourceRef="Participant_070as9r" targetRef="Participant_1t5c03c" />
   </bpmn:collaboration>
   <bpmn:process id="Process_1v6358l" name="Camunda RPA Bridge Demo Process" isExecutable="true">
     <bpmn:laneSet id="LaneSet_169p422">
@@ -55,17 +64,19 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_16piin4">
       <bpmndi:BPMNShape id="Participant_0rbxd2y_di" bpmnElement="WorkflowEngineParticipant" isHorizontal="true">
-        <dc:Bounds x="160" y="57" width="630" height="250" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Lane_1exwxef_di" bpmnElement="UserLane" isHorizontal="true">
-        <dc:Bounds x="190" y="57" width="600" height="125" />
+        <dc:Bounds x="160" y="57" width="580" height="250" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_1os3ajw_di" bpmnElement="AutomaticLane" isHorizontal="true">
-        <dc:Bounds x="190" y="182" width="600" height="125" />
+        <dc:Bounds x="190" y="182" width="550" height="125" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1jphk25_di" bpmnElement="Flow_1jphk25">
-        <di:waypoint x="600" y="117" />
-        <di:waypoint x="662" y="117" />
+      <bpmndi:BPMNShape id="Lane_1exwxef_di" bpmnElement="UserLane" isHorizontal="true">
+        <dc:Bounds x="190" y="57" width="550" height="125" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0c8eq2x_di" bpmnElement="Flow_0c8eq2x">
+        <di:waypoint x="285" y="117" />
+        <di:waypoint x="313" y="117" />
+        <di:waypoint x="313" y="240" />
+        <di:waypoint x="340" y="240" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ins21o_di" bpmnElement="Flow_0ins21o">
         <di:waypoint x="440" y="240" />
@@ -73,11 +84,9 @@
         <di:waypoint x="470" y="117" />
         <di:waypoint x="500" y="117" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0c8eq2x_di" bpmnElement="Flow_0c8eq2x">
-        <di:waypoint x="285" y="117" />
-        <di:waypoint x="313" y="117" />
-        <di:waypoint x="313" y="240" />
-        <di:waypoint x="340" y="240" />
+      <bpmndi:BPMNEdge id="Flow_1jphk25_di" bpmnElement="Flow_1jphk25">
+        <di:waypoint x="600" y="117" />
+        <di:waypoint x="662" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="NameOfUserEnterdStartEvent">
         <dc:Bounds x="249" y="99" width="36" height="36" />
@@ -97,6 +106,57 @@
       <bpmndi:BPMNShape id="Activity_18hg1nu_di" bpmnElement="CallUiPathDemoBotTask">
         <dc:Bounds x="340" y="200" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_0pm67jy_di" bpmnElement="Participant_0m4upfy" isHorizontal="true">
+        <dc:Bounds x="160" y="370" width="300" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_179x867_di" bpmnElement="Participant_1t5c03c" isHorizontal="true">
+        <dc:Bounds x="160" y="510" width="300" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_1wa5aiu_di" bpmnElement="Participant_070as9r" isHorizontal="true">
+        <dc:Bounds x="160" y="610" width="300" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0vy8x3k_di" bpmnElement="Flow_0vy8x3k">
+        <di:waypoint x="370" y="280" />
+        <di:waypoint x="370" y="370" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="277" y="322" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1yowdr4_di" bpmnElement="Flow_1yowdr4">
+        <di:waypoint x="410" y="370" />
+        <di:waypoint x="410" y="280" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="419" y="313" width="83" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ixt2p6_di" bpmnElement="Flow_0ixt2p6">
+        <di:waypoint x="370" y="430" />
+        <di:waypoint x="370" y="510" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="267" y="437" width="86" height="66" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1suitk0_di" bpmnElement="Flow_1suitk0">
+        <di:waypoint x="410" y="510" />
+        <di:waypoint x="410" y="430" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="420" y="437" width="81" height="66" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1h84hxe_di" bpmnElement="Flow_1h84hxe">
+        <di:waypoint x="370" y="570" />
+        <di:waypoint x="370" y="610" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="325" y="580" width="30" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_184c40b_di" bpmnElement="Flow_184c40b">
+        <di:waypoint x="410" y="610" />
+        <di:waypoint x="410" y="570" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="426" y="580" width="69" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
