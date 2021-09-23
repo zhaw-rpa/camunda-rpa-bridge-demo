@@ -3,7 +3,7 @@
   <bpmn:collaboration id="Collaboration_16piin4">
     <bpmn:participant id="WorkflowEngineParticipant" name="Workflow Engine" processRef="Process_1v6358l" />
     <bpmn:participant id="Participant_0m4upfy" name="Camunda RPA Bridge" />
-    <bpmn:participant id="Participant_1t5c03c" name="UiPath Orchestrator API" />
+    <bpmn:participant id="Participant_1t5c03c" name="UiPath Orchestrator" />
     <bpmn:participant id="Participant_070as9r" name="UiPath Bot" />
     <bpmn:messageFlow id="Flow_0vy8x3k" name="Process Name (Package), Name" sourceRef="CallUiPathDemoBotTask" targetRef="Participant_0m4upfy" />
     <bpmn:messageFlow id="Flow_1yowdr4" name="Successful: Date and Time; Failure: Error Message" sourceRef="Participant_0m4upfy" targetRef="CallUiPathDemoBotTask" />
